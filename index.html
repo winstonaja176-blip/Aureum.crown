@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aureum Crown - Hall of Legends</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --dark-blue: #0a192f;
+            --crimson: #990000;
+            --gold-yellow: #ffcc00;
+            --elegant-white: #ffffff;
+            --pure-black: #000000;
+            --card-bg: #f8fafc;
+            --soft-gray: #f1f5f9;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--elegant-white);
+            color: var(--pure-black);
+        }
+
+        /* --- SCREEN LOGIN (SITUS RESMI CRK) --- */
+        #login-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: var(--elegant-white);
+            position: relative;
+        }
+
+        /* Garis Crimson Atas khas Web Event Game */
+        #login-screen::before, #main-page::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            background: var(--crimson);
+            box-shadow: 0 2px 10px rgba(153, 0, 0, 0.3);
+            z-index: 10;
+        }
+
+        .login-box {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 0px; 
+            box-shadow: 0 20px 40px rgba(10, 25, 47, 0.1);
+            text-align: center;
+            border: 4px solid var(--dark-blue); 
+            max-width: 400px;
+            width: 90%;
+            position: relative;
+        }
+
+        .login-box::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            right: -10px;
+            width: 100%;
+            height: 100%;
+            border: 4px solid var(--gold-yellow);
+            z-index: -1;
+        }
+
+        .login-box h2 { 
+            color: var(--pure-black); 
+            margin-bottom: 5px; 
+            text-transform: uppercase;
+            font-weight: 900;
+            letter-spacing: 3px;
+        }
+
+        .login-box p { 
+            color: var(--crimson); 
+            font-size: 13px; 
+            margin-top: 0;
+            margin-bottom: 30px; 
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .custom-file-upload {
+            border: 3px dashed var(--dark-blue);
+            display: block;
+            padding: 20px;
+            cursor: pointer;
+            color: var(--dark-blue);
+            margin-bottom: 25px;
+            font-weight: 700;
+            font-size: 14px;
+            transition: 0.2s ease;
+            background: #ffffff;
+        }
+
+        .custom-file-upload:hover { 
+            background: var(--dark-blue);
+            color: #ffffff;
+        }
+
+        .btn-verify {
+            background: var(--gold-yellow);
+            color: var(--dark-blue);
+            border: 3px solid var(--dark-blue);
+            padding: 15px 30px;
+            font-weight: 900;
+            cursor: pointer;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 0px var(--dark-blue);
+            transition: all 0.1s ease;
+        }
+
+        .btn-verify:hover { 
+            transform: translateY(2px);
+            box-shadow: 0 2px 0px var(--dark-blue);
+        }
+
+        #message { 
+            margin-top: 20px; 
+            font-weight: 900; 
+            font-size: 13px; 
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .error { color: var(--crimson); }
+        .success { color: #008855; }
+
+        /* --- SCREEN UTAMA (LATAR BELAKANG PUTIH ELEGAN) --- */
+        #main-page {
+            display: none; 
+            min-height: 100vh;
+            flex-direction: column;
+            align-items: center;
+            padding: 60px 20px;
+            box-sizing: border-box;
+            background-color: var(--elegant-white);
+            color: var(--pure-black);
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-banner {
+            margin-top: 40px;
+            margin-bottom: 40px;
+            animation: fadeIn 1s forwards;
+        }
+
+        .header-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: 15px;
+            color: var(--pure-black); 
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .header-title::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--crimson);
+            margin: 10px auto 0 auto;
+        }
+
+        .sub-header {
+            font-size: 4.5rem;
+            font-weight: 900;
+            color: var(--gold-yellow); 
+            text-transform: uppercase;
+            margin: 0;
+            line-height: 1;
+            letter-spacing: -2px;
+            -webkit-text-stroke: 3px var(--dark-blue);
+            text-shadow: 5px 5px 0px var(--dark-blue);
+        }
+
+        /* --- SECTION: THE GUILD HEROES --- */
+        .section-heroes {
+            width: 100%;
+            max-width: 1100px;
+            margin-top: 60px;
+            animation: slideUp 1s ease-out;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: var(--dark-blue);
+            letter-spacing: 4px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .section-title::before, .section-title::after {
+            content: "";
+            width: 80px;
+            height: 3px;
+            background: var(--crimson);
+        }
+
+        /* Tampilan Showcase Karakter */
+        .showcase-container {
+            display: flex;
+            background-color: var(--soft-gray);
+            border: 4px solid var(--dark-blue);
+            box-shadow: 8px 8px 0px var(--crimson);
+            position: relative;
+            flex-wrap: wrap;
+            text-align: left;
+        }
+
+        /* Area Stage Altar Belakang & Karakter Cookie */
+        .stage-area {
+            flex: 1;
+            min-width: 300px;
+            height: 450px;
+            position: relative;
+            background: radial-gradient(circle, #1a365d 0%, #050b14 100%);
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            overflow: hidden;
+            border-right: 4px solid var(--dark-blue);
+        }
+
+        /* Altar Emas (Gambar Pertama) */
+        .altar-image {
+            width: 90%;
+            height: auto;
+            position: absolute;
+            bottom: -20px;
+            z-index: 1;
+        }
+
+        /* Karakter Cookie Ditimpa Diatas Altar (Gambar Kedua) */
+        .cookie-character {
+            width: 85%;
+            height: auto;
+            position: absolute;
+            bottom: 30px;
+            z-index: 2;
+            filter: drop-shadow(0px 10px 20px rgba(0,0,0,0.6));
+            animation: floatEffect 4s ease-in-out infinite;
+        }
+
+        /* Area Deskripsi Teks Pencapaian */
+        .profile-area {
+            flex: 1.2;
+            min-width: 320px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+
+        .hero-name {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--crimson);
+            margin: 0 0 5px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-title-sub {
+            font-size: 0.9rem;
+            font-weight: 900;
+            color: var(--dark-blue);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+        }
+
+        .achievement-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .achievement-item {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            font-weight: 700;
+            color: #334155;
+        }
+
+        /* Poin list kotak kuning khas game */
+        .achievement-item::before {
+            content: "◆";
+            position: absolute;
+            left: 0;
+            color: var(--gold-yellow);
+            -webkit-text-stroke: 1px var(--dark-blue);
+            font-size: 1.2rem;
+        }
+
+        .achievement-item strong {
+            color: var(--dark-blue);
+        }
+
+        /* Animasi */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Efek melayang halus untuk karakter game */
+        @keyframes floatEffect {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        input[type="file"] { display: none; }
+
+        @media (max-width: 768px) {
+            .stage-area { border-right: none; border-bottom: 4px solid var(--dark-blue); }
+            .sub-header { font-size: 3rem; }
+            .hero-name { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="login-screen">
+        <div class="login-box">
+            <h2>Aureum Crown</h2>
+            <p>HALL OF THE GUILD LEGENDS</p>
+            
+            <label for="access-card" class="custom-file-upload">
+                <span id="file-label">UNGGAH ACCESS CARD</span>
+            </label>
+            <input type="file" id="access-card" accept="image/*" onchange="updateFileName()">
+            
+            <button class="btn-verify" onclick="verifyByFileName()">Verifikasi Akses</button>
+            <div id="message"></div>
+        </div>
+    </div>
+
+    <div id="main-page">
+        <div class="hero-banner">
+            <div class="header-title">Aureum Crown</div>
+            <h1 class="sub-header">Hall of the<br>Guild Legends</h1>
+        </div>
+
+        <div class="section-heroes">
+            <div class="section-title">The Guild Heroes</div>
+            
+            <div class="showcase-container">
+                <div class="stage-area">
+                    <img src="1000227029.png" alt="Altar Stage" class="altar-image">
+                    <img src="1000225545.webp" alt="Castian Hero" class="cookie-character">
+                </div>
+                
+                <div class="profile-area">
+                    <h2 class="hero-name">Castian</h2>
+                    <div class="hero-title-sub">The First Leader & Founder</div>
+                    
+                    <ul class="achievement-list">
+                        <li class="achievement-item">
+                            Mendirikan fondasi utama sebagai <strong>Leader Guild Pertama</strong> yang resmi didirikan pada tanggal <strong>21 Mei 2026</strong>.
+                        </li>
+                        <li class="achievement-item">
+                            Membawa pengaruh dan kontribusi luar biasa dalam menaikkan <strong>Level Guild</strong> secara masif dan konstan.
+                        </li>
+                        <li class="achievement-item">
+                            Memimpin guild hingga berhasil menembus papan atas jajaran peringkat <strong>Rank Elite</strong> pada mode kompetitif <strong>Guild Battle</strong> dan <strong>Cookie Alliance</strong>.
+                        </li>
+                        <li class="achievement-item">
+                            Tercatat sebagai <strong>Donatur Relik Terbesar</strong> dalam sejarah peradaban kejayaan emas Aureum Crown.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Kunci file target akses masuk
+        const TARGET_FILE_NAME = "1000227025.png";
+
+        function updateFileName() {
+            const fileInput = document.getElementById('access-card');
+            const fileLabel = document.getElementById('file-label');
+            if (fileInput.files.length > 0) {
+                fileLabel.innerText = fileInput.files[0].name;
+            }
+        }
+
+        function verifyByFileName() {
+            const fileInput = document.getElementById('access-card');
+            const messageDiv = document.getElementById('message');
+            
+            if (fileInput.files.length === 0) {
+                messageDiv.className = "error";
+                messageDiv.innerText = "Peringatan: Silakan pilih file gambar!";
+                return;
+            }
+            
+            const uploadedFileName = fileInput.files[0].name;
+            
+            if (uploadedFileName === TARGET_FILE_NAME) {
+                messageDiv.className = "success";
+                messageDiv.innerText = "Akses Diterima! Membuka halaman...";
+                
+                setTimeout(() => {
+                    document.getElementById('login-screen').style.display = 'none';
+                    document.getElementById('main-page').style.display = 'flex';
+                    window.scrollTo(0, 0);
+                }, 1000);
+                
+            } else {
+                messageDiv.className = "error";
+                messageDiv.innerText = "Akses Ditolak: Nama berkas tidak sesuai!";
+            }
+        }
+    </script>
+</body>
+</html>
